@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.vasekric.beetletrack" >
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +26,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProjectDetails" >
+        </activity>
+        <activity android:name=".IssueList" >
+        </activity>
+        <activity android:name=".IssueDetail" >
+        </activity>
+        <activity android:name=".CreateIssue" >
+        </activity>
+        <activity
+            android:name=".SideNav"
+            android:label="@string/title_activity_side_nav"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">BeetleTrack</string>
+    <string-array name="issue_types">
+        <item>Epic</item>
+        <item>Story</item>
+        <item>Task</item>
+    </string-array>
+
+    <string name="title_activity_show_photo">ShowPhoto</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_side_nav">SideNav</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

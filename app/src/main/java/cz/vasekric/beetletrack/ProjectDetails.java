@@ -1,20 +1,23 @@
 package cz.vasekric.beetletrack;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
-
-import java.net.URL;
 
 import cz.vasekric.beetletrack.models.Project;
 
 public class ProjectDetails extends AppCompatActivity {
 
+    Intent issueList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_details);
+
+        issueList = new Intent(this, IssueList.class);
 
         loadProject();
     }
@@ -33,22 +36,13 @@ public class ProjectDetails extends AppCompatActivity {
         ((TextView)findViewById(R.id.projectName)).setText(project.name);
         ((TextView)findViewById(R.id.readme)).setText(project.readme);
         ((TextView)findViewById(R.id.projectManager)).setText("Project manager: "+project.projectManager.fullName);
-    }
 
-
-
-
-    private class DownloadProjectTask extends AsyncTask<URL, Integer, Long> {
-        protected Long doInBackground(URL... urls) {
-
-            return 0L;
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        protected void onPostExecute(Long result) {
-
-        }
+        findViewById(R.id.seeIssuesButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                issueList.putExtra("projectId", project.id);
+                startActivityForResult(issueList, 1);
+            }
+        });
     }
 }

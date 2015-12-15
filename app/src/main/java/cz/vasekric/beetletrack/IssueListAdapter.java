@@ -9,20 +9,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cz.vasekric.beetletrack.models.Project;
+import cz.vasekric.beetletrack.models.IssueCommon;
 
 /**
  * Created by vasek on 23.11.2015.
  */
-public class ProjectListAdapter extends ArrayAdapter<Project> {
+public class IssueListAdapter extends ArrayAdapter<IssueCommon> {
 
-    private List<Project> projects;
+    private List<IssueCommon> issues;
     private int resourceId;
 
-    public ProjectListAdapter(Context context, List<Project> projects) {
-        super(context, R.layout.project_list_entry, projects);
-        this.resourceId = R.layout.project_list_entry;
-        this.projects = projects;
+    public IssueListAdapter(Context context, List<IssueCommon> issues) {
+        super(context, R.layout.issue_list_item, issues);
+        this.resourceId = R.layout.issue_list_item;
+        this.issues = issues;
     }
 
     @Override
@@ -33,29 +33,27 @@ public class ProjectListAdapter extends ArrayAdapter<Project> {
             final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
             row = inflater.inflate(resourceId, parent, false);
             holder = new EntryHolder();
-            holder.projectName = (TextView)row.findViewById(R.id.projectName);
-            holder.managerName = (TextView)row.findViewById(R.id.pManager);
+            holder.issueName = (TextView)row.findViewById(R.id.itemIssueName);
 
         }
         else {
             holder = (EntryHolder)row.getTag();
         }
 
-        final Project project = projects.get(position);
-        holder.projectName.setText(project.name);
-        holder.managerName.setText(project.projectManager != null ? project.projectManager.fullName : null);
-
+        if(holder != null) {
+            final IssueCommon issue = issues.get(position);
+            holder.issueName.setText(issue.name);
+        }
 
         return row;
     }
 
-    public List<Project> getData() {
-        return projects;
+    public List<IssueCommon> getData() {
+        return issues;
     }
 
     public static class EntryHolder
     {
-        TextView projectName;
-        TextView managerName;
+        TextView issueName;
     }
 }

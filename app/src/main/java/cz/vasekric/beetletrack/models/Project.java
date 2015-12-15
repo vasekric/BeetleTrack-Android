@@ -13,5 +13,5 @@ public class Project implements Serializable {
     public String readme;
     public User projectManager;
     public List<User> users = new ArrayList<>();
-    public List<Issue> issues = new ArrayList<>();
+    public List<IssueCommon> issues = new ArrayList<>();
 }

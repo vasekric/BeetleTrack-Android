@@ -10,6 +10,4 @@ public class User implements Serializable {
     public String username;
     public String fullName;
     public String email;
-    public String password;
-    public boolean  authenticated;
 }

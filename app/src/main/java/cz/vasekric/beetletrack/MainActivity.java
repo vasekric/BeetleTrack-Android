@@ -1,30 +1,25 @@
 package cz.vasekric.beetletrack;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cz.vasekric.beetletrack.models.Project;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     ListView projectsList;
 
@@ -36,7 +31,7 @@ public class MainActivity extends Activity {
         final List<Project> projects = new ArrayList<>();
 
         projectsList = (ListView)findViewById(R.id.projectListView);
-        new DownloadAllProjects().execute("http://demo9290911.mockable.io/api/projects/all");
+        new DownloadAllProjects().execute("http://185.8.164.56:8888/beetletrack.restapi-exploded/api/projects/all");
 
 
         projectsList.setAdapter(new ProjectListAdapter(this, projects));
@@ -59,9 +54,16 @@ public class MainActivity extends Activity {
         protected List<Project> doInBackground(String ...urls) {
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            Project[] projects = restTemplate.getForObject(urls[0], Project[].class);
 
-            return Arrays.asList(projects);
+            try {
+                Project[] projects = restTemplate.getForObject(urls[0], Project[].class);
+                return Arrays.asList(projects);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(urls[0]);
+                return new ArrayList<>();
+            }
         }
 
         protected void onProgressUpdate(Integer... progress) {
